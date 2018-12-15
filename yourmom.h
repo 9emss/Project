@@ -9,10 +9,10 @@
 #define en endl
 #define hapus() clrscr()
 #define tahan() getch()
-#define enter() gethe()
+#define enter() getche()
 
 garis2(){
-   co << "----------------------------------------------------------------------------------------\n";
+   	co << "----------------------------------------------------------------------------------------\n";
 }
 
 garisSd2(){
@@ -21,8 +21,8 @@ garisSd2(){
 
 heder2(){
 	co << "\t\t\t\t   * TOKO KOMPUTER *\n";
-   co << "\t\t\t\t  ** TEKNO KOMPUTER **\n";
-   co << "\t\t\t *** Jl. Maju Mundur No. 69, Bekasi ***\n";
+   	co << "\t\t\t\t  ** TEKNO KOMPUTER **\n";
+   	co << "\t\t\t *** Jl. Maju Mundur No. 69, Bekasi ***\n";
 }
 
 garisSd(){
@@ -34,9 +34,9 @@ garis(){
 }
 
 heder(){
-	co << "\t\t    *  TOKO KOMPUTER *\n";
-   co << "\t\t   ** TEKNO KOMPUTER **\n";
-   co << "\t  *** Jl. Maju Mundur No. 69, Bekasi ***\n";
+   	co << "\t\t    *  TOKO KOMPUTER *\n";
+   	co << "\t\t   ** TEKNO KOMPUTER **\n";
+   	co << "\t  *** Jl. Maju Mundur No. 69, Bekasi ***\n";
 }
 
 int hitung_pajak(int a){
@@ -44,9 +44,13 @@ int hitung_pajak(int a){
 }
 
 int uang_balik(int a, int b){
-   return a - b ;
+   	return a - b ;
 }
 
 int totalHarga(int jmlh, int hrg){
 	return (jmlh * hrg);
+}
+
+int jumlaHarga(int jmlh, int sub){
+	return jmlh + sub;
 }
