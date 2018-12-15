@@ -1,13 +1,14 @@
-#include "yourmom.h"
+#include "yourmom.h"       //File Header
 
-int hitung_pajak(int a);
-int uang_balik(int a, int b);
-int totalHarga(int jmlh, int hrg);
+int hitung_pajak(int a);     // Prototype Fungsi Menghitung Pajak
+int uang_balik(int a, int b);  // Prototype Fungsi MEnghitung Uang Kembali
+int totalHarga(int jmlh, int hrg); // Prototype Fungsi MEnghitung SubTotal
+int jumlaHarga(int jmlh, int sub); // Prototype Fungsi Menghitung Total Harga
 
 mulai(){
    int ban = 0;
 	struct{
-   	int sub, subw, banyak, jenis[30], harga[100], banyAk[30], pajak, pajek, total[50], jumlah, bayar, pot, kembali, tot_har;
+   	int subtotal, subw, banyak, jenis[30], harga[100], banyAk[30], pajak, pajek, total[50], jumlah, bayar, pot, kembali, tot_har;
    	char pilih[6], ulang, kode[10][10], merk[100][100], merek[10];
 
    }input;
@@ -102,7 +103,7 @@ mulai(){
          		co << "\tJenis Barang        : " << input.merek << en;
       			co << "\tBanyak Tipe         : "; ci >> input.banyak;
       	if(input.banyak <=4){
-      		for(int x = 1; x <= input.banyak; x++){
+      		for(int x = 1; x <= input.banyak; x++){  //pengulangan / looping
          		co << "\tTipe Ke - " << x << en;
          		co << "\tMasukan Kode Merk   : "; ci >> input.kode[x];
    				if((strcmp(input.kode[x], "I9KBLXE") == 0) || (strcmp(input.kode[x], "i9kblxe") == 0)){
@@ -172,13 +173,14 @@ mulai(){
                co << setiosflags(ios::left) << setw(6) << "\t         ";
                co << setiosflags(ios::left) << setw(25) << input.harga[x];
                //Menghitung Total Barang
-               ban = ban + input.banyAk[x];
+               ban = ban + input.banyAk[x];  // Untuk Menjumlahkan Total Pembelian Barang
                //Menghitung Subtotal
                //totalHarga(input.harga[x], input.banyAk[x])
-               co << setiosflags(ios::left) << setw(16) << totalHarga(input.harga[x], input.banyAk[x]);
+               input.subtotal = totalHarga(input.harga[x], input.banyAk[x]);
+               co << setiosflags(ios::left) << setw(16) << input.subtotal;
 					co << endl;
                //Menghitung Jumlah Harga
-               input.jumlah = input.jumlah + totalHarga(input.harga[x], input.banyAk[x]);
+               input.jumlah = jumlaHarga(input.jumlah, input.subtotal);
 				}
             // proses menghitung jumlah harga, potongan, pajak
 				garis2();
@@ -209,13 +211,7 @@ mulai(){
             co << setiosflags(ios::left) << setw(9) << uang_balik(input.bayar, input.tot_har) << en;
             garis2();
             co << en;
-            co << setiosflags(ios::right) << setw(74) << "Cetak ? [Y/T]  :     "; ci >> input.ulang;
-            if(input.ulang == 'Y' || input.ulang == 'y'){
-            	goto cetak;
-            }else{
-            	hapus();
-               co << "\tData Tidak Tercetak\n";
-            }
+            enter();
       	}else{
       		co << "\tAnda Melebihi Kapasitas Pembelian!\n";
       	}
@@ -261,13 +257,14 @@ mulai(){
                co << setiosflags(ios::left) << setw(6) << "\t         ";
                co << setiosflags(ios::left) << setw(25) << input.harga[x];
                //Menghitung Total Barang
-               ban = ban + input.banyAk[x];
+               ban = ban + input.banyAk[x];  // Untuk Menjumlahkan Total Pembelian Barang
                //Menghitung Subtotal
                //totalHarga(input.harga[x], input.banyAk[x])
-               co << setiosflags(ios::left) << setw(16) << totalHarga(input.harga[x], input.banyAk[x]);
+               input.subtotal = totalHarga(input.harga[x], input.banyAk[x]);
+               co << setiosflags(ios::left) << setw(16) << input.subtotal;
 					co << endl;
                //Menghitung Jumlah Harga
-               input.jumlah = input.jumlah + totalHarga(input.harga[x], input.banyAk[x]);
+               input.jumlah = jumlaHarga(input.jumlah, input.subtotal);
 				}
             // proses menghitung jumlah harga, potongan, pajak
 				garis2();
@@ -298,13 +295,7 @@ mulai(){
             co << setiosflags(ios::left) << setw(9) << uang_balik(input.bayar, input.tot_har) << en;
             garis2();
             co << en;
-            co << setiosflags(ios::right) << setw(74) << "Cetak ? [Y/T]  :     "; ci >> input.ulang;
-            if(input.ulang == 'Y' || input.ulang == 'y'){
-            	goto cetak;
-            }else if(input.ulang == 'T' || input.ulang == 't'){
-            	hapus();
-               co << "\tData Tidak Tercetak\n";
-            }
+            enter();
          }else{
       		co << "\tAnda Melebihi Kapasitas Pembelian!\n";
       	}
@@ -347,13 +338,14 @@ mulai(){
                co << setiosflags(ios::left) << setw(6) << "\t         ";
                co << setiosflags(ios::left) << setw(25) << input.harga[x];
                //Menghitung Total Barang
-               ban = ban + input.banyAk[x];
+               ban = ban + input.banyAk[x];  // Untuk Menjumlahkan Total Pembelian Barang
                //Menghitung Subtotal
                //totalHarga(input.harga[x], input.banyAk[x])
-               co << setiosflags(ios::left) << setw(16) << totalHarga(input.harga[x], input.banyAk[x]);
+               input.subtotal = totalHarga(input.harga[x], input.banyAk[x]);
+               co << setiosflags(ios::left) << setw(16) << input.subtotal;
 					co << endl;
                //Menghitung Jumlah Harga
-               input.jumlah = input.jumlah + totalHarga(input.harga[x], input.banyAk[x]);
+               input.jumlah = jumlaHarga(input.jumlah, input.subtotal);
 				}
             // proses menghitung jumlah harga, potongan, pajak
 				garis2();
@@ -384,13 +376,7 @@ mulai(){
             co << setiosflags(ios::left) << setw(9) << uang_balik(input.bayar, input.tot_har) << en;
             garis2();
             co << en;
-            co << setiosflags(ios::right) << setw(74) << "Cetak ? [Y/T]  :     "; ci >> input.ulang;
-            if(input.ulang == 'Y' || input.ulang == 'y'){
-            	goto cetak;
-            }else if(input.ulang == 'T' || input.ulang == 't'){
-            	hapus();
-               co << "\tData Tidak Tercetak\n";
-            }
+            enter();
          }else{
       		co << "\tAnda Melebihi Kapasitas Pembelian!\n";
       	}
@@ -404,7 +390,6 @@ mulai(){
    }
 
    // Menampilkan Data yang sudah dipilih dalam bentuk tabel
-	cetak:
    hapus();
    heder2();
    garisSd2();
@@ -419,8 +404,9 @@ mulai(){
       co << setiosflags(ios::right) << setw(6) << input.banyAk[x];
       co << setiosflags(ios::left) << setw(6) << "\t         ";
       co << setiosflags(ios::left) << setw(25) << input.harga[x];
-      co << setiosflags(ios::left) << setw(16) << totalHarga(input.harga[x], input.banyAk[x]);
-      input.jumlah = input.jumlah + totalHarga(input.harga[x], input.banyAk[x]);
+      input.subtotal = totalHarga(input.harga[x], input.banyAk[x]);
+      co << setiosflags(ios::left) << setw(16) << input.subtotal;
+      input.jumlah = jumlaHarga(input.jumlah, input.subtotal);
       co << endl;
 
    }
@@ -453,4 +439,3 @@ mulai(){
    co << "\t   Admin\n";
    tahan();
 }
-
