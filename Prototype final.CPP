@@ -3,12 +3,13 @@
 int hitung_pajak(int a);     // Prototype Fungsi Menghitung Pajak
 int uang_balik(int a, int b);  // Prototype Fungsi MEnghitung Uang Kembali
 int totalHarga(int jmlh, int hrg); // Prototype Fungsi MEnghitung SubTotal
-int jumlaHarga(int jmlh, int sub); // Prototype Fungsi Menghitung Total Harga
+int jumlaHarga(int jmlh, int sub); // Prototype Fungsi Menghitung Jumlah Harga
+int TotalHarga(int jmlh, int pjk, int pot); // Prototype Fungsi Menghitung Total Harga
 
 mulai(){
    int ban = 0;
 	struct{
-   	int subtotal, subw, banyak, jenis[30], harga[100], banyAk[30], pajak, pajek, total[50], jumlah, bayar, pot, kembali, tot_har;
+   	int subtotal, pajakk, banyak, jenis[30], harga[100], banyAk[30], pajak, pajek, total[50], jumlah, bayar, pot, kembali, tot_har;
    	char pilih[6], ulang, kode[10][10], merk[100][100], merek[10];
 
    }input;
@@ -18,7 +19,7 @@ mulai(){
    input.jumlah = 0;
    hapus();
 	heder();        // Memanggil Fungsi yang telah di buat di file header yourmom
-   garisSd();      //
+   garisSd();
    co << en;
 	co << "\tSelamat Berbelanja Di Toko Kami\n";
    co << "\tMenu Utama : \n";
@@ -101,11 +102,18 @@ mulai(){
          heder2();
          garisSd2();
          		co << "\tJenis Barang        : " << input.merek << en;
+
+               //Input banyaknya tipe barang yang akan di beli
       			co << "\tBanyak Tipe         : "; ci >> input.banyak;
+
       	if(input.banyak <=4){
       		for(int x = 1; x <= input.banyak; x++){  //pengulangan / looping
          		co << "\tTipe Ke - " << x << en;
+
+               //Input Kode barang Yang akan di beli
          		co << "\tMasukan Kode Merk   : "; ci >> input.kode[x];
+
+               //PEMILIHAN KODE BARANG
    				if((strcmp(input.kode[x], "I9KBLXE") == 0) || (strcmp(input.kode[x], "i9kblxe") == 0)){
             		strcpy(input.merk[x], "INTEL Core i9 7980XE      ");
                	input.harga[x] = 31000000;
@@ -158,6 +166,8 @@ mulai(){
             		strcpy(input.merk[x], " - ");
                	input.harga[x] = 0;
             	}
+
+               // Input banyak barang dari tipe barang yang di beli
                co << "\tBanyak yang di beli : "; ci >> input.banyAk[x];
 
          	}
@@ -165,6 +175,7 @@ mulai(){
  				co << "No.   Merek dan Tipe Barang          Banyak      Harga                    Subtotal" << en;
             co << "                                     Barang      Satuan                           " << en;
  				garis2();
+
             //proses untuk menampilkan data yang telah di pilih dalam bentuk tabel
  				for(int x = 1; x <= input.banyak; x++){
  					co << setiosflags(ios::left) << setw(6) << x;
@@ -172,38 +183,53 @@ mulai(){
                co << setiosflags(ios::right) << setw(6) << input.banyAk[x];
                co << setiosflags(ios::left) << setw(6) << "\t         ";
                co << setiosflags(ios::left) << setw(25) << input.harga[x];
+
                //Menghitung Total Barang
-               ban = ban + input.banyAk[x];  // Untuk Menjumlahkan Total Pembelian Barang
+               ban = ban tam input.banyAk[x];  // Untuk Menjumlahkan Total Pembelian Barang
                //Menghitung Subtotal
                //totalHarga(input.harga[x], input.banyAk[x])
                input.subtotal = totalHarga(input.harga[x], input.banyAk[x]);
+
                co << setiosflags(ios::left) << setw(16) << input.subtotal;
 					co << endl;
+
                //Menghitung Jumlah Harga
                input.jumlah = jumlaHarga(input.jumlah, input.subtotal);
+
 				}
             // proses menghitung jumlah harga, potongan, pajak
 				garis2();
             co << setiosflags(ios::right) << setw(74) << "Total Barang    :     ";
             co << setiosflags(ios::left) << setw(9) << ban << en;
+
             if(ban >= 3){
+
             	// Menghitung Besarnya Potongan
-            	input.pot = 0.15 * input.jumlah + 1;
+            	input.pot = 0.15 kal input.jumlah tam 1;
+
             }else{
+
             	input.pot = 0;
+
             }
+
             co << setiosflags(ios::right) << setw(74) << "Jumlah Harga    : Rp. ";
             co << setiosflags(ios::left) << setw(9) << input.jumlah << en;
             co << setiosflags(ios::right) << setw(74) << "PPN             : Rp. ";
+
             //Menghitung Pajak
             //hitung_pajak(input.jumlah);
-            co << setiosflags(ios::left) << setw(9) << hitung_pajak(input.jumlah) << en;
+				input.pajakk = hitung_pajak(input.jumlah);
+
+            co << setiosflags(ios::left) << setw(9) << input.pajakk << en;
             co << setiosflags(ios::right) << setw(74) << "Potongan        : Rp. ";
             co << setiosflags(ios::left) << setw(9) << input.pot << en;
             co << setiosflags(ios::right) << setw(74) << "----------------------";
             co << setiosflags(ios::left) << setw(0) << bar << en;
+
             //Menghitung Total Harga
-            input.tot_har = input.jumlah + hitung_pajak(input.jumlah) - input.pot;
+            input.tot_har = TotalHarga(input.jumlah, input.pajakk, input.pot);
+
             co << setiosflags(ios::right) << setw(74) << "Total Harga     : Rp. ";
             co << setiosflags(ios::left) << setw(9) << input.tot_har << en;
             co << setiosflags(ios::right) << setw(74) << "Jumlah Bayar    : Rp. "; ci >> input.bayar;
@@ -221,11 +247,18 @@ mulai(){
          heder2();
          garisSd2();
          		co << "\tJenis Barang        : " << input.merek << en;
+
+               //Input banyaknya tipe barang yang akan di beli
       			co << "\tBanyak Tipe         : "; ci >> input.banyak;
+
       	if(input.banyak <=4){
       		for(int x = 1; x <= input.banyak; x++){
          		co << "\tTipe Ke - " << x << en;
+
+               //Input Kode barang Yang akan di beli
          		co << "\tMasukan Kode Merk   : "; ci >> input.kode[x];
+
+               //PEMILIHAN KODE BARANG
    				if((strcmp(input.kode[x], "CSR16") == 0) || (strcmp(input.kode[x], "csr16") == 0)){
             		strcpy(input.merk[x], "Vengeance 16 Gb           ");
                	input.harga[x] = 2200000;
@@ -242,6 +275,8 @@ mulai(){
                   strcpy(input.merk[x], " - ");
                   input.harga[x] = 0;
                }
+
+               // Input banyak barang dari tipe barang yang di beli
                co << "\tBanyak yang di beli : "; ci >> input.banyAk[x];
 
          	}
@@ -256,11 +291,14 @@ mulai(){
                co << setiosflags(ios::right) << setw(6) << input.banyAk[x];
                co << setiosflags(ios::left) << setw(6) << "\t         ";
                co << setiosflags(ios::left) << setw(25) << input.harga[x];
+
                //Menghitung Total Barang
-               ban = ban + input.banyAk[x];  // Untuk Menjumlahkan Total Pembelian Barang
+               ban = ban tam input.banyAk[x];  // Untuk Menjumlahkan Total Pembelian Barang
+
                //Menghitung Subtotal
                //totalHarga(input.harga[x], input.banyAk[x])
                input.subtotal = totalHarga(input.harga[x], input.banyAk[x]);
+
                co << setiosflags(ios::left) << setw(16) << input.subtotal;
 					co << endl;
                //Menghitung Jumlah Harga
@@ -270,24 +308,35 @@ mulai(){
 				garis2();
             co << setiosflags(ios::right) << setw(74) << "Total Barang    :     ";
             co << setiosflags(ios::left) << setw(9) << ban << en;
+
             if(ban >= 3){
+
             	// Menghitung Besarnya Potongan
-            	input.pot = 0.15 * input.jumlah + 1;
+            	input.pot = 0.15 kal input.jumlah tam 1;
+
             }else{
+
             	input.pot = 0;
+
             }
+
             co << setiosflags(ios::right) << setw(74) << "Jumlah Harga    : Rp. ";
             co << setiosflags(ios::left) << setw(9) << input.jumlah << en;
             co << setiosflags(ios::right) << setw(74) << "PPN             : Rp. ";
+
             //Menghitung Pajak
             //hitung_pajak(input.jumlah);
-            co << setiosflags(ios::left) << setw(9) << hitung_pajak(input.jumlah) << en;
+				input.pajakk = hitung_pajak(input.jumlah);
+
+            co << setiosflags(ios::left) << setw(9) << input.pajakk << en;
             co << setiosflags(ios::right) << setw(74) << "Potongan        : Rp. ";
             co << setiosflags(ios::left) << setw(9) << input.pot << en;
             co << setiosflags(ios::right) << setw(74) << "----------------------";
             co << setiosflags(ios::left) << setw(0) << bar << en;
+
             //Menghitung Total Harga
-            input.tot_har = input.jumlah + hitung_pajak(input.jumlah) - input.pot;
+            input.tot_har = TotalHarga(input.jumlah, input.pajakk, input.pot);
+
             co << setiosflags(ios::right) << setw(74) << "Total Harga     : Rp. ";
             co << setiosflags(ios::left) << setw(9) << input.tot_har << en;
             co << setiosflags(ios::right) << setw(74) << "Jumlah Bayar    : Rp. "; ci >> input.bayar;
@@ -305,11 +354,18 @@ mulai(){
          heder2();
          garisSd2();
          		co << "\tJenis Barang        : " << input.merek << en;
+
+               //Input banyaknya tipe barang yang akan di beli
       			co << "\tBanyak Tipe         : "; ci >> input.banyak;
+
       	if(input.banyak <=4){
       		for(int x = 1; x <= input.banyak; x++){
          		co << "\tTipe Ke - " << x << en;
+
+               //Input Kode barang Yang akan di beli
          		co << "\tMasukan Kode Merk   : "; ci >> input.kode[x];
+
+               //PEMILIHAN KODE BARANG
    				if((strcmp(input.kode[x], "750") == 0)){
             		strcpy(input.merk[x], "Corsair CX750M 80 Plus    ");
                	input.harga[x] = 1600000;
@@ -323,6 +379,8 @@ mulai(){
                   strcpy(input.merk[x], " - ");
                	input.harga[x] = 0;
                }
+
+               // Input banyak barang dari tipe barang yang di beli
                co << "\tBanyak yang di beli : "; ci >> input.banyAk[x];
 
          	}
@@ -337,38 +395,54 @@ mulai(){
                co << setiosflags(ios::right) << setw(6) << input.banyAk[x];
                co << setiosflags(ios::left) << setw(6) << "\t         ";
                co << setiosflags(ios::left) << setw(25) << input.harga[x];
+
                //Menghitung Total Barang
-               ban = ban + input.banyAk[x];  // Untuk Menjumlahkan Total Pembelian Barang
+               ban = ban tam input.banyAk[x];  // Untuk Menjumlahkan Total Pembelian Barang
+
                //Menghitung Subtotal
                //totalHarga(input.harga[x], input.banyAk[x])
                input.subtotal = totalHarga(input.harga[x], input.banyAk[x]);
+
                co << setiosflags(ios::left) << setw(16) << input.subtotal;
 					co << endl;
+
                //Menghitung Jumlah Harga
                input.jumlah = jumlaHarga(input.jumlah, input.subtotal);
+
 				}
             // proses menghitung jumlah harga, potongan, pajak
 				garis2();
             co << setiosflags(ios::right) << setw(74) << "Total Barang    :     ";
             co << setiosflags(ios::left) << setw(9) << ban << en;
+
             if(ban >= 3){
+
             	// Menghitung Besarnya Potongan
-            	input.pot = 0.15 * input.jumlah + 1;
+            	input.pot = 0.15 kal input.jumlah tam 1;
+
             }else{
+
             	input.pot = 0;
+
             }
+
             co << setiosflags(ios::right) << setw(74) << "Jumlah Harga    : Rp. ";
             co << setiosflags(ios::left) << setw(9) << input.jumlah << en;
             co << setiosflags(ios::right) << setw(74) << "PPN             : Rp. ";
+
             //Menghitung Pajak
             //hitung_pajak(input.jumlah);
-            co << setiosflags(ios::left) << setw(9) << hitung_pajak(input.jumlah) << en;
+				input.pajakk = hitung_pajak(input.jumlah);
+
+            co << setiosflags(ios::left) << setw(9) << input.pajakk << en;
             co << setiosflags(ios::right) << setw(74) << "Potongan        : Rp. ";
             co << setiosflags(ios::left) << setw(9) << input.pot << en;
             co << setiosflags(ios::right) << setw(74) << "----------------------";
             co << setiosflags(ios::left) << setw(0) << bar << en;
+
             //Menghitung Total Harga
-            input.tot_har = input.jumlah + hitung_pajak(input.jumlah) - input.pot;
+            input.tot_har = TotalHarga(input.jumlah, input.pajakk, input.pot);
+
             co << setiosflags(ios::right) << setw(74) << "Total Harga     : Rp. ";
             co << setiosflags(ios::left) << setw(9) << input.tot_har << en;
             co << setiosflags(ios::right) << setw(74) << "Jumlah Bayar    : Rp. "; ci >> input.bayar;
@@ -407,6 +481,7 @@ mulai(){
       input.subtotal = totalHarga(input.harga[x], input.banyAk[x]);
       co << setiosflags(ios::left) << setw(16) << input.subtotal;
       input.jumlah = jumlaHarga(input.jumlah, input.subtotal);
+
       co << endl;
 
    }
@@ -419,7 +494,7 @@ mulai(){
    co << setiosflags(ios::right) << setw(74) << "Jumlah Harga    : Rp. ";
    co << setiosflags(ios::left) << setw(9) << input.jumlah << en;
    co << setiosflags(ios::right) << setw(74) << "PPN             : Rp. ";
-   co << setiosflags(ios::left) << setw(9) << hitung_pajak(input.jumlah) << en;
+   co << setiosflags(ios::left) << setw(9) << input.pajakk << en;
    co << setiosflags(ios::right) << setw(74) << "Potongan        : Rp. ";
    co << setiosflags(ios::left) << setw(9) << input.pot << en;
    co << setiosflags(ios::right) << setw(74) << "----------------------";
