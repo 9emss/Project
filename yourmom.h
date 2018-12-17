@@ -10,9 +10,13 @@
 #define hapus() clrscr()
 #define tahan() getch()
 #define enter() getche()
+#define kal *
+#define bag /
+#define kur -
+#define tam +
 
 garis2(){
-   	co << "----------------------------------------------------------------------------------------\n";
+   co << "----------------------------------------------------------------------------------------\n";
 }
 
 garisSd2(){
@@ -21,8 +25,8 @@ garisSd2(){
 
 heder2(){
 	co << "\t\t\t\t   * TOKO KOMPUTER *\n";
-   	co << "\t\t\t\t  ** TEKNO KOMPUTER **\n";
-   	co << "\t\t\t *** Jl. Maju Mundur No. 69, Bekasi ***\n";
+   co << "\t\t\t\t  ** TEKNO KOMPUTER **\n";
+   co << "\t\t\t *** Jl. Maju Mundur No. 69, Bekasi ***\n";
 }
 
 garisSd(){
@@ -34,23 +38,27 @@ garis(){
 }
 
 heder(){
-   	co << "\t\t    *  TOKO KOMPUTER *\n";
-   	co << "\t\t   ** TEKNO KOMPUTER **\n";
-   	co << "\t  *** Jl. Maju Mundur No. 69, Bekasi ***\n";
+	co << "\t\t    *  TOKO KOMPUTER *\n";
+   co << "\t\t   ** TEKNO KOMPUTER **\n";
+   co << "\t  *** Jl. Maju Mundur No. 69, Bekasi ***\n";
 }
 
 int hitung_pajak(int a){
-	return a*0.1;
+	return a kal 0.1;
 }
 
 int uang_balik(int a, int b){
-   	return a - b ;
+   return a kur b ;
 }
 
 int totalHarga(int jmlh, int hrg){
-	return (jmlh * hrg);
+	return (jmlh kal hrg);
 }
 
 int jumlaHarga(int jmlh, int sub){
-	return jmlh + sub;
+	return jmlh tam sub;
+}
+
+int TotalHarga(int jmlh, int pjk, int pot){
+	return jmlh + pjk - pot;
 }
