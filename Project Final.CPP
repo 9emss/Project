@@ -330,5 +330,5 @@ mulai(){
    tahan();
 
 }
-
+//tes
 
